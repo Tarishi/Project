@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+	    
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xmlns:security="http://www.springframework.org/schema/security"  
+       xmlns:p="http://www.springframework.org/schema/p"    
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   
+                           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd   
+                           http://www.springframework.org/schema/security   
+                           http://www.springframework.org/schema/security/spring-security-3.1.xsd">  
+  
+
+ 
+ 
+  <security:http auto-config="true">  
+   
+ <security:form-login login-page="/index" default-target-url="/home" 
+   authentication-failure-url="/fail2login.html" /> 
+  
+  
+   <security:logout logout-success-url="/logout.html" />  
+ </security:http> 
+   
+   
+ 
+
+       
+  <!--  <security:http auto-config="true">  
+  <security:intercept-url pattern="/home11*" access="ROLE_USER,ROLE_ADMIN" />  
+
+ </security:http>   -->
+  
+ <!-- <security:authentication-manager>  
+  <security:authentication-provider>  
+   <security:user-service>  
+    <security:user name="admin" password="admin" authorities="ROLE_ADMIN" />
+    <security:user name="user" password="user" authorities="ROLE_USER"/>  
+   </security:user-service>  
+  </security:authentication-provider>  
+ </security:authentication-manager>    -->
+
+ 
+  
+ 
+ 
+<security:authentication-manager>  
+  <security:authentication-provider>  
+   <security:jdbc-user-service data-source-ref="dataSource"  
+    users-by-username-query="select user_name,user_password,enabled from users where user_name=?"  
+    authorities-by-username-query="select user_name, role from users where user_name =?  " />  
+  </security:authentication-provider>  
+ </security:authentication-manager>  
+ 
+  
+</beans>
